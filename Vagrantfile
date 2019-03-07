@@ -2,8 +2,8 @@
 # vi: set ft=ruby :
 
 Vagrant.configure('2') do |config|
-  config.vm.box      = 'ubuntu/xenial64' # 16.04
-  config.vm.hostname = 'kaklabs'
+  config.vm.box      = 'ubuntu/bionic64' # 18.04
+  config.vm.hostname = 'bionic'
   config.vm.box_check_update = true
 
   config.vm.network :forwarded_port, guest: 3000, host: 3000

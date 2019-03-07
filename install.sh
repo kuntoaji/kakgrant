@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-# this function is taken from https://github.com/rails/rails-dev-box/blob/master/bootstrap.sh
+# reference: https://github.com/rails/rails-dev-box/blob/master/bootstrap.sh
 function install {
   echo installing $1
   shift
@@ -15,14 +15,10 @@ swapon /swapfile
 echo '/swapfile none swap sw 0 0' >> /etc/fstab
 
 echo updating package information
-apt-add-repository -y ppa:brightbox/ruby-ng >/dev/null 2>&1
 apt-get -y update >/dev/null 2>&1
 
 install 'build-essential' build-essential
-
-install Ruby ruby2.4 ruby2.4-dev
-update-alternatives --set ruby /usr/bin/ruby2.4 >/dev/null 2>&1
-update-alternatives --set gem /usr/bin/gem2.4 >/dev/null 2>&1
+install Ruby ruby-full
 
 echo installing current RubyGems
 gem update --system -N >/dev/null 2>&1
