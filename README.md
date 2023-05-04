@@ -1,91 +1,113 @@
-# My vagrant box for Ruby on Rails development
+# My Vagrant Box for Ruby on Rails Development on Apple Silicon M1 / M2
 
-## Introduction
+This Vagrant configuration sets up a virtual machine for Ruby on Rails and PostgreSQL development. The goal of
+the configuration is to run on Apple Silicon M1 / M2.
 
-Vagrant configuration for Ruby on Rails and PostgreSQL
+This project is heavily inspired by [github.com/rails/rails-dev-box](https://github.com/rails/rails-dev-box).
 
 ## Requirements
 
-* [VirtualBox](https://www.virtualbox.org)
+* [Qemu](https://www.qemu.org)
+* [Vagrant](https://www.vagrantup.com)
+* [vagrant-qemu](https://github.com/ppggff/vagrant-qemu) plugin
 
-* [Vagrant](http://vagrantup.com)
+## How to Use
 
-## How To Use This
+To use this configuration, run the following commands in your terminal:
 
-Just run these linux commands:
+```sh
+# Install vagrant
+brew install hashicorp/tap/hashicorp-vagrant
 
-    $ git clone https://github.com/kuntoaji/kakgrant.git
-    $ cd rails-dev-box
-    $ vagrant up
+# Install Qemu
+brew install qemu
 
-After the installation has finished, you can access the virtual machine with
+# Install vagrant-qemu plugin
+vagrant plugin install vagrant-qemu
 
-    $ vagrant ssh
+git clone https://github.com/kuntoaji/kakgrant.git
+cd kakgrant
+vagrant up
+```
+
+After the all process above are finished, access the virtual machine with:
+
+```sh
+vagrant ssh
+```
+To make files are synced automatically with rspec, open new tab and run this:
+
+``` sh
+vagrant rsync-auto
+```
 
 ## Forwarded Ports
-* 3000
-* 8080
+The following ports are forwarded:
 
-## How To Run Rails inside Vagrant
+* 3000 (uncomment in Vagranfile to enable)
 
-You need to bind IP 0.0.0.0 with forwarded port to run Rails server inside vagrant
+## Running Rails inside Vagrant
 
-    bin/rails server -b 0.0.0.0
+To run the Rails server inside Vagrant, you need to bind IP 0.0.0.0 with the forwarded port:
 
-or
+```sh
+# by default rails uses port 3000
+$ bin/rails server -b 0.0.0.0
+```
+## RAM
 
-    bin/rails server -b 0.0.0.0 -p 8080
+By default, the virtual machine launches with 4 GB of RAM.
 
-## RAM and CPUs
+## What's Included
 
-By default, the VM launches with 2 GB of RAM and 2 CPUs.
-
-## What's In The Box
+The virtual machine comes with the following:
 
 * Development tools
-
 * Git
-
-* Ruby 2.4
-
+* Ruby
 * Bundler
-
 * PostgreSQL
-
 * System dependencies for nokogiri and pg
-
-* An ExecJS runtime with Node.js
+* Node.js
 
 ## Recommended Workflow
 
-The recommended workflow is
-
-* edit in the host computer and
-
-* test within the virtual machine.
+We recommend editing on the host computer and testing within the virtual machine.
 
 ## Vagrant Commands
 
-Log out with `^D` and suspend the virtual machine
+Log out with `^D` and suspend the virtual machine:
 
-    $ vagrant suspend
+```sh
+$ vagrant suspend
+```
 
-Resume after suspend
+Resume after suspend:
 
-    $ vagrant resume
+```sh
+$ vagrant resume
+```
 
-Shutdown the virtual machine
+Shutdown the virtual machine:
 
-    $ vagrant halt
+```sh
+$ vagrant halt
+```
 
-Start the virtual machine
+Start the virtual machine:
 
-    $ vagrant up
+```sh
+$ vagrant up
+```
 
-Check status
+Check status:
 
-    $ vagrant status
+```sh
+$ vagrant status
+```
 
-Destroy and wipe the virtual machine the disk **destroying all its contents**:
+Destroy and wipe the virtual machine disk, **destroying all its contents**:
 
-    $ vagrant destroy # DANGER: all is gone
+```sh
+$ vagrant destroy # DANGER: all is gone
+```

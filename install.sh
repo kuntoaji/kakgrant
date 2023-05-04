@@ -1,6 +1,5 @@
 #!/usr/bin/env bash
 
-# reference: https://github.com/rails/rails-dev-box/blob/master/bootstrap.sh
 function install {
   echo installing $1
   shift
@@ -17,14 +16,11 @@ echo '/swapfile none swap sw 0 0' >> /etc/fstab
 echo updating package information
 apt-get -y update >/dev/null 2>&1
 
-install 'build-essential' build-essential
+install 'development tools' build-essential autoconf libtool
 install Ruby ruby-full
 
-echo installing current RubyGems
+echo updating current RubyGems
 gem update --system -N >/dev/null 2>&1
-
-echo installing Bundler
-gem install bundler -N >/dev/null 2>&1
 
 install Git git
 
